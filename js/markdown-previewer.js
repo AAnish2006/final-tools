@@ -17,9 +17,9 @@
   const copyBtn = page.querySelector('.md-btn-copy');
   const downloadBtns = page.querySelectorAll('.md-btn-download');
 
-  const SAMPLE_MARKDOWN = `# Welcome to DevToolBox Markdown Editor
+  const SAMPLE_MARKDOWN = `## Welcome to DevToolBox Markdown Editor
 
-A fast, interactive, **100% browser-based** Markdown to HTML live editor and previewer.
+A fast, interactive Markdown to HTML live editor and previewer. Your draft is processed in this browser tab.
 
 ## Key Features
 - **Live Preview:** Changes render instantly side-by-side

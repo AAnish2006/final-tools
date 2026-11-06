@@ -58,8 +58,12 @@
   ];
 
   function getCryptoRandomInt(max) {
+    const range = 0x100000000;
+    const ceiling = Math.floor(range / max) * max;
     const array = new Uint32Array(1);
-    window.crypto.getRandomValues(array);
+    do {
+      window.crypto.getRandomValues(array);
+    } while (array[0] >= ceiling);
     return array[0] % max;
   }
 
@@ -134,10 +138,10 @@
   }
 
   function getStrengthLevel(bits) {
-    if (bits < 40) return { bits, label: 'Weak', color: '#ef4444', percent: 25, time: 'Seconds' };
-    if (bits < 60) return { bits, label: 'Fair', color: '#f59e0b', percent: 50, time: 'Few Days' };
-    if (bits < 80) return { bits, label: 'Strong', color: '#3b82f6', percent: 75, time: 'Centuries' };
-    return { bits, label: 'Very Strong', color: '#10b981', percent: 100, time: 'Trillions of Years' };
+    if (bits < 40) return { bits, label: 'Weak', color: '#ef4444', percent: 25, time: 'Low estimate' };
+    if (bits < 60) return { bits, label: 'Fair', color: '#f59e0b', percent: 50, time: 'Moderate estimate' };
+    if (bits < 80) return { bits, label: 'Strong', color: '#3b82f6', percent: 75, time: 'High estimate' };
+    return { bits, label: 'Very Strong', color: '#10b981', percent: 100, time: 'Very high estimate' };
   }
 
   function calculateEntropy(pwd) {
@@ -150,12 +154,19 @@
       return getStrengthLevel(bits);
     }
 
-    if (/[a-z]/.test(pwd)) poolSize += 26;
-    if (/[A-Z]/.test(pwd)) poolSize += 26;
-    if (/[0-9]/.test(pwd)) poolSize += 10;
-    if (/[^a-zA-Z0-9]/.test(pwd)) poolSize += 30;
-
-    const bits = Math.round(pwd.length * Math.log2(Math.max(2, poolSize)));
+    const enabledPools = [];
+    if (includeUpper) enabledPools.push(excludeAmbiguous ? 24 : 26);
+    if (includeLower) enabledPools.push(excludeAmbiguous ? 24 : 26);
+    if (includeNumbers) enabledPools.push(excludeAmbiguous ? 8 : 10);
+    if (includeSymbols) enabledPools.push(excludeAmbiguous ? 25 : 26);
+    if (!enabledPools.length) enabledPools.push(26);
+    poolSize = enabledPools.reduce((sum, size) => sum + size, 0);
+    // Each enabled set contributes one guaranteed character; remaining slots
+    // are selected from the combined pool. This estimate does not model the
+    // additional entropy of the final shuffle and is intentionally approximate.
+    const guaranteedBits = enabledPools.reduce((sum, size) => sum + Math.log2(size), 0);
+    const randomSlots = Math.max(0, pwd.length - enabledPools.length);
+    const bits = Math.round(guaranteedBits + randomSlots * Math.log2(poolSize));
     return getStrengthLevel(bits);
   }
 

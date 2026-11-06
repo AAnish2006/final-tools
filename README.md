@@ -1,9 +1,9 @@
 # DevToolBox — Free Online Developer Tools Suite (Pure Vanilla Web Edition)
 
-A high-performance, 100% browser-based suite of developer utilities built strictly using **Semantic HTML5**, **Modern CSS3**, and **Vanilla JavaScript (ES6+)**.
+A browser-based suite of developer utilities built strictly using **Semantic HTML5**, **Modern CSS3**, and **Vanilla JavaScript (ES6+)**.
 
 > **Zero React. Zero Vite. Zero npm runtime dependencies. Zero build step.**  
-> Pre-rendered static architecture delivering instant load times (sub-50ms FCP), 100% Core Web Vitals scores, and crawlability across search engines.
+> Static HTML architecture; performance and Core Web Vitals should be measured on the deployed site.
 
 ---
 
@@ -24,7 +24,7 @@ A high-performance, 100% browser-based suite of developer utilities built strict
 
 3. **Word Counter & Platform Limits** (`/tools/word-counter`)
    - Live metrics: Words, characters, characters without spaces, sentences, paragraphs, reading and speaking time.
-   - Social media limit tracking (Twitter/X, Facebook, LinkedIn, Instagram).
+   - Documented platform limit checks (X, LinkedIn, YouTube, and Pinterest).
    - Character overflow card highlighting excess characters in red `<mark>` tags with one-click trimming.
    - Real-time keyword density and term frequency analytics table.
 
@@ -34,14 +34,14 @@ A high-performance, 100% browser-based suite of developer utilities built strict
    - Sample JSON loader, file upload, copy, and `.json` download.
 
 5. **Client-Side Image Resizer** (`/tools/image-resizer`)
-   - 100% in-browser HTML5 `<canvas>` image pipeline with **zero server transmission**.
+   - HTML5 `<canvas>` image processing in the browser.
    - Custom dimensions, aspect-ratio lock, social media presets, format conversion (PNG, JPEG, WebP), and quality compression slider.
 
 6. **Secure Password & Passphrase Generator** (`/tools/password-generator`)
    - Cryptographically secure pseudo-random generation using native Web Crypto API (`crypto.getRandomValues`).
    - Customizable character sets (Uppercase, Lowercase, Numbers, Symbols, Exclude Ambiguous `1, l, I, 0, O`).
    - Memorable passphrase mode (Diceware style).
-   - Shannon entropy calculation (bits) and crack time estimation (~Instant to trillions of years).
+   - Approximate entropy estimate based on generator settings; no crack-time guarantee.
    - Hero single password box + bulk generation (up to 50 passwords) with individual copy buttons.
 
 7. **Base64 & URL Encoder/Decoder** (`/tools/base64-encoder`)
@@ -89,7 +89,7 @@ Includes 11 SEO-optimized technical guides:
 ## 🔍 SEO & Technical Architecture
 
 - **100% Static Pre-rendered HTML:** Every page includes complete semantic markup, pre-rendered `<h1>`–`<h3>` headings, breadcrumbs, and FAQs.
-- **Structured Data:** Validated Schema.org JSON-LD scripts (`WebSite`, `WebApplication`, `BreadcrumbList`, `FAQPage`, `Article`).
+- **Structured Data:** Schema.org JSON-LD scripts with valid JSON syntax (`WebSite`, `WebApplication`, `BreadcrumbList`, `FAQPage`, `Article`).
 - **Social Tags:** Complete OpenGraph (`og:*`) and Twitter Cards (`twitter:*`) on every page.
 - **Search Directives:** Root `robots.txt` and comprehensive `sitemap.xml` covering all 27 canonical URLs.
 - **Google AdSense:** Integrated publisher ID `ca-pub-3950161950238885`, verification meta tags, responsive ad banner containers, and root `ads.txt`.
